@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>排序组件</title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	</head>
+	<body>
+		<div>
+			<h2 class="title">复选框被选中的组件才可以通过拖拽移动li元素</h2>
+			<div class="zj">
+				<h1>
+					组件A
+					<input type="checkbox" class="checkbox"/>
+				</h1>
+				<ul class="city-list">
+					<li>城市 1</li>
+					<li>城市 2</li>
+					<li>城市 3</li>
+					<li>城市 4</li>
+					<li>城市 5</li>
+					<li>城市 6</li>
+					<li>城市 7</li>
+					<li>城市 8</li>
+					<li>城市 9</li>
+					<li>城市 10</li>
+					<li>城市 11</li>
+					<li>城市 12</li>
+					<li>城市 13</li>
+					<li>城市 14</li>
+					<li>城市 15</li>
+					<li>城市 16</li>
+					<li>城市 17</li>
+					<li>城市 18</li>
+					<li>城市 19</li>
+					<li>城市 20</li>
+					<li>城市 21</li>
+					<li>城市 22</li>
+					<li>城市 23</li>
+					<li>城市 24</li>
+					<li>城市 25</li>
+					<li>城市 26</li>
+					<li>城市 27</li>
+					<li>城市 28</li>
+					<li>城市 29</li>
+					<li>城市 30</li>
+					<li>城市 31</li>
+					<li>城市 32</li>
+					<li>城市 33</li>
+					<li>城市 34</li>
+					<li>城市 35</li>
+					<li>城市 36</li>
+					<li>城市 37</li>
+					<li>城市 38</li>
+					<li>城市 39</li>
+					<li>城市 40</li>
+					<li>城市 41</li>
+					<li>城市 42</li>
+					<li>城市 43</li>
+					<li>城市 44</li>
+					<li>城市 45</li>
+					<li>城市 46</li>
+					<li>城市 47</li>
+					<li>城市 48</li>
+					<li>城市 49</li>
+					<li>城市 50</li>
+				</ul>
+			</div>
+			<div class="zj">
+				<h1>
+					组件B
+					<input type="checkbox" class="checkbox"/>
+				</h1>
+				<ul class="city-list">
+					<li>北京市</li>
+					<li>上海市</li>
+					<li>广州市</li>
+					<li>深圳市</li>
+				</ul>
+			</div>
+			<div class="zj">
+				<h1>
+					组件C
+					<input type="checkbox" class="checkbox"/>
+				</h1>
+				<ul class="city-list"></ul>
+			</div>
+		</div>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var li = document.createElement("li");
+			var that = null;
+			var target = null;
+			//城市拖动排序
+			$('.city-list').each(function() {
+				$(this).on('drop', function() {
+					if (that.parent()[0] !== $(this)[0]) {
+						$(this).append(that);
+					}
+				});
+			});
+			$('.checkbox').on('change',function(){
+				var parents = $(this).parents('.zj');
+				parents.find('.city-list li').each(function(){
+					if (parents.find(':checked').length>0) {
+						$(this).attr('draggable', 'true');
+						$(this).on("dragstart", function() {
+							that = $(this);
+						});
+						$(this).on('dragover',function(){
+							li.className = 'show';
+							$(this).before(li);
+							target = $(this);
+						});
+						$(this).on("dragend", function() {
+							li.className = 'hide';
+							target.before(that);
+							that = null;
+						});
+					}else{
+						$(this).attr('draggable', 'false');
+						$(this).off('dragstart');
+						$(this).off('dragover');
+						$(this).off('dragend');
+					}
+				});
+				parents.on('dragover', function(e) {
+					if (parents.find(':checked').length>0) {
+						e.preventDefault();
+					}
+				});
+			})
+		</script>
+	</body>
+</html>
