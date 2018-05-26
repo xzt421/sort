@@ -33,6 +33,7 @@ ul,li{
 }
 .zj li{
 	padding: 10px;
+	background: white;
 	border-bottom: 1px solid #CCCCCC;
 	position: relative;
 	cursor: pointer;
